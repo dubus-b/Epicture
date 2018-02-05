@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
     signingConfigs {
         release {
             storeFile file(RELEASE_STORE_FILE)
@@ -10,6 +9,7 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
+    compileSdkVersion 26
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "epicture.apk"
