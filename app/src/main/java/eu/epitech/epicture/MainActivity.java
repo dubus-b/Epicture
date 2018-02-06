@@ -1,10 +1,14 @@
 package eu.epitech.epicture;
 
 import android.support.constraint.ConstraintLayout;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Layout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,9 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onSearchSuccess(ArrayList<String> images) {
-        for (String imgAddrs : images)
-        {
+        public void onSearchSuccess(ArrayList<String> images) {
+        for (String imgAddrs : images) {
 
         }
     }
@@ -41,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onUploadButtonClick(View view) {
-
     }
+
 
     public void onSettingClick(View view) {
 

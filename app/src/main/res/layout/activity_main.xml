@@ -51,5 +51,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@android:color/background_light"
+        android:onClick="LaunchSearchActivity"
+        app:srcCompat="@drawable/ic_search_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
