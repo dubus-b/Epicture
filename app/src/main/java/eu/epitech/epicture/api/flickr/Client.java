@@ -1,6 +1,7 @@
 package eu.epitech.epicture.api.flickr;
 
 import android.content.Context;
+import android.telecom.Call;
 import android.util.Log;
 import android.util.Pair;
 
@@ -39,7 +40,7 @@ public class Client implements IPictureSearchingServices {
 
 
     @Override
-    public String SearchContentByName(Context ctxt, String ContentName, int maximum, ISearchingPicturesServicesCallback Callback) {
+    public String SearchContentByName(Context ctxt, String ContentName, int maximum, final ISearchingPicturesServicesCallback Callback) {
         String Content_encoded = null;
         try {
             Content_encoded = URLEncoder.encode(ContentName, "utf-8");
@@ -48,12 +49,35 @@ public class Client implements IPictureSearchingServices {
         }
         RequestQueue queue = Volley.newRequestQueue(ctxt);
         final String Tag = UUID.randomUUID().toString();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://api.flickr.com/services/rest/?method=flickr.photos.search&content_type=4&api_key=" + _ID + "&format=json&text=" + Content_encoded,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://api.flickr.com/services/rest/?method=flickr.photos.search&per_page=10&content_type=4&api_key=" + _ID + "&format=json&text=" + Content_encoded,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.d("Answer: ", response);
+                        response = response.substring("jsonFlickrApi(".length(), response.length() - 1);
+                        Log.d("Res: ", response);
+                        ArrayList<String> Answers = new ArrayList<String>();
+                        try {
+                            JSONObject flickrResult = new JSONObject(response);
+                            JSONObject photos = flickrResult.getJSONObject("photos");
+                            JSONArray photo = photos.getJSONArray("photo");
+                            for (int photoId = 0; photoId < photo.length(); ++photoId) {
+                                JSONObject CurrentPicture = photo.getJSONObject(photoId);
+                                Answers.add("https://farm" + CurrentPicture.getString("farm")
+                                        + ".staticflickr.com/" + CurrentPicture.getString("server")
+                                        + "/" + CurrentPicture.getString("id")
+                                        + "_"+ CurrentPicture.getString("secret")
+                                        + ".jpg");
+                                Log.d("Photoid " + photoId + " : ", "https://farm" + CurrentPicture.getString("farm")
+                                        + ".staticflickr.com/" + CurrentPicture.getString("server")
+                                        + "/" + CurrentPicture.getString("id")
+                                        + "_"+ CurrentPicture.getString("secret")
+                                        + ".jpg");
+                            }
+                            Callback.onSuccess(Answers);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
