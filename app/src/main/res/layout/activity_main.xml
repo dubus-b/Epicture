@@ -33,7 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <include
         android:id="@+id/search_layout"
         layout="@layout/activity_search_bar"
@@ -67,6 +66,5 @@
         app:layout_constraintEnd_toEndOf="@+id/favorite_gallery"
         app:layout_constraintStart_toStartOf="@+id/favorite_gallery"
         app:layout_constraintTop_toBottomOf="@+id/search_layout" />
-
 
 </android.support.constraint.ConstraintLayout>

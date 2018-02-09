@@ -114,5 +114,5 @@ public class Client implements IPictureSearchingServices {
         Queue.add(stringRequest);
         return Tag;
     }
-    
+
 }

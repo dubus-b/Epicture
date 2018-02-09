@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private CardImageAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    }
 
+    public void onSearchError() {
     }
 
     public void onFavoriteButtonClick(View view) {
@@ -117,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             searchLayout.setVisibility(View.INVISIBLE);
             button.setImageResource(R.drawable.ic_search);
-
         }
     }
 }
