@@ -7,6 +7,5 @@ package eu.epitech.epicture.database;
 public class InfoDB {
 
     public static final String DB_NAME = "eu.epitech.epicture.databse";
-    public static final int DB_VERSION = 1;
-
+    public static final int DB_VERSION = 2;
 }

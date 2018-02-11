@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     public static IPictureSearchingServices _imgur = new eu.epitech.epicture.api.imgur.Client();
 
     // FAVORITE DECLARATION
-    public static ArrayList<String> favoriteList;
-    private ArrayList<String> imageList;
+    public static ArrayList<CardImage> favoriteList;
+    private ArrayList<CardImage> imageList;
 
     // GALLERY DECLARATION
     private RecyclerView recyclerView;
@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         database = new Query(this);
+        favoriteList = new ArrayList<>();
+        imageList = new ArrayList<>();
+        dbFavorite.getAllUrl(favoriteList);
     }
 
     public void onSearchError() {
@@ -184,7 +187,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ArrayList<String> imageUrlList) {
                 Log.i("Image Gallery", imageUrlList.size() + " images have been found");
-                imageList = imageUrlList;
+                imageList.clear();
+                for (String url : imageUrlList) {
+                    imageList.add(new CardImage(url));
+                }
                 updateUI();
                 CircleIt.setVisibility(View.GONE);
                 onSearchClick(view);
@@ -205,6 +211,20 @@ public class MainActivity extends AppCompatActivity {
         adapter = new CardImageAdapter(getApplicationContext(), imageList);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new CardImageAdapter.OnItemClickListener() {
+            @Override
+            public void onDownloadClick(int position) {
+
+            }
+
+            @Override
+            public void onFavoriteClick(int position) {
+                CardImage current = imageList.get(position);
+                Log.i("FavoriteClick", "Click on " + current.getUrl());
+                current.switchFavorite();
+                adapter.notifyItemChanged(position);
+            }
+        });
     }
 
 

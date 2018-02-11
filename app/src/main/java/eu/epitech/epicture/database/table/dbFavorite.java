@@ -58,7 +58,7 @@ public class dbFavorite implements BaseColumns {
     public static void delUrl(String url) {
         Log.i("FAVORITE DEL", url);
         SQLiteDatabase database = MainActivity.database.getWritableDatabase();
-        database.delete(TABLE, _ID + " = ?", new String[] {url});
+        database.delete(TABLE, COL_FAVORITE_URL + " = ?", new String[] {url});
         database.close();
     }
 
