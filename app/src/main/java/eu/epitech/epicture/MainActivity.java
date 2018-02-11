@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 updateUI();
                 CircleIt.setVisibility(View.GONE);
                 onSearchClick(view);
-                Log.i("CUSTOM", "close search windows and circleit");
             }
 
             @Override
