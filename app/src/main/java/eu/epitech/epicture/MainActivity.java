@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import eu.epitech.epicture.api.IPictureSearchingServices;
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
 import eu.epitech.epicture.database.Query;
-import eu.epitech.epicture.favorite.FavoriteActivity;
+import eu.epitech.epicture.database.table.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private IPictureSearchingServices _flickr = new eu.epitech.epicture.api.flickr.Client();
     private IPictureSearchingServices _imgur = new eu.epitech.epicture.api.imgur.Client();
 
+    // FAVORITE DECLARATION
+    public static ArrayList<String> favoriteList;
+    private ArrayList<String> imageList;
+
     // GALLERY DECLARATION
     private RecyclerView recyclerView;
     private CardImageAdapter adapter;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         database = new Query(this);
+        favoriteList = dbFavorite.getAllUrl();
     }
 
     @Override
@@ -80,12 +85,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ArrayList<String> imageUrlList) {
                 Log.i("Image Gallery", imageUrlList.size() + " images have been found");
-                recyclerView = findViewById(R.id.favorite_gallery);
-                recyclerView.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(getApplicationContext());
-                adapter = new CardImageAdapter(getApplicationContext(), imageUrlList);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
+                imageList = imageUrlList;
+                updateUI();
                 CircleIt.setVisibility(View.GONE);
                 onSearchClick(view);
             }
@@ -96,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("error ", ":/");
             }
         });
+    }
+
+    public void updateUI() {
+        recyclerView = findViewById(R.id.favorite_gallery);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        adapter = new CardImageAdapter(getApplicationContext(), imageList);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
     public void onSearchClick(View view) {

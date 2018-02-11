@@ -13,9 +13,9 @@ public class dbImgurAccount implements BaseColumns {
     public static final String COL_ACCOUNT_ID = "user_id";
 
     public static String getSqlCreateTable() {
-        String sql = "CREATE TABLE account ( " +
+        String sql = "CREATE TABLE " + TABLE + " ( " +
                 _ID + " integer PRIMARY KEY AUTOINCREMENT, " +
-                COL_ACCOUNT_ID + " integer PRIMARY KEY AUTOINCREMENT" +
+                COL_ACCOUNT_ID + " integer NOT NULL UNIQUE" +
                 ");";
         return sql;
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.epitech.epicture.favorite.FavoriteActivity">
+    tools:context="eu.epitech.epicture.FavoriteActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/favorite_gallery"
