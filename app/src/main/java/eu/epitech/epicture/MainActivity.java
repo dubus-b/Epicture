@@ -1,6 +1,6 @@
 package eu.epitech.epicture;
 
-import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,14 +16,9 @@ import java.util.ArrayList;
 
 import eu.epitech.epicture.api.IPictureSearchingServices;
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
+import eu.epitech.epicture.favorite.FavoriteActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static Context context;
-
-    public static Context getContext() {
-        return MainActivity.context;
-    }
 
     // API INTERFACE DECLARATION
     private IPictureSearchingServices _pixabay = new eu.epitech.epicture.api.pixabay.Client();
@@ -38,12 +33,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getApplicationContext();
         setContentView(R.layout.activity_main);
     }
 
-    public void onFavoriteButtonClick(View view) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+    }
+
+    public void onFavoriteButtonClick(View view) {
+        Intent favoriteIntent = new Intent(MainActivity.this, FavoriteActivity.class);
+        startActivityForResult(favoriteIntent, 0);
     }
 
     public void onUploadButtonClick(View view) {
@@ -71,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
         String Text = ((EditText)findViewById(R.id.search_input)).getText().toString();
         CircleIt.setVisibility(View.VISIBLE);
         service.SearchContentByName(this, Text, 0, new ISearchingPicturesServicesCallback() {
+
             @Override
-            public void onSuccess(ArrayList<String> Results) {
-                Log.i("Image Gallery", Results.size() + " images have been found");
-                recyclerView = findViewById(R.id.image_gallery);
+            public void onSuccess(ArrayList<String> imageUrlList) {
+                Log.i("Image Gallery", imageUrlList.size() + " images have been found");
+                recyclerView = findViewById(R.id.favorite_gallery);
                 recyclerView.setHasFixedSize(true);
-                layoutManager = new LinearLayoutManager(MainActivity.getContext());
-                adapter = new CardImageAdapter(Results);
+                layoutManager = new LinearLayoutManager(getApplicationContext());
+                adapter = new CardImageAdapter(getApplicationContext(), imageUrlList);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 CircleIt.setVisibility(View.GONE);

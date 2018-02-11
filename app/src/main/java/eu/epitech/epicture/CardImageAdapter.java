@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.ImageViewHolder> {
 
+    private Context activityContext;
     private ArrayList<String> imageAddrsList;
     private OnItemClickListener imageClickListener;
 
@@ -51,8 +52,9 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
         }
     }
 
-    public CardImageAdapter(ArrayList<String> arrayList) {
-        imageAddrsList = arrayList;
+    public CardImageAdapter(Context context, ArrayList<String> imageAddrsList) {
+        this.activityContext = context;
+        this.imageAddrsList = imageAddrsList;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         CardImage currentItem = new CardImage(imageAddrsList.get(position));
-        Picasso.with(MainActivity.getContext()).load(currentItem.getUrl()).into(holder.image);
+        Picasso.with(activityContext).load(currentItem.getUrl()).into(holder.image);
     }
 
     @Override
