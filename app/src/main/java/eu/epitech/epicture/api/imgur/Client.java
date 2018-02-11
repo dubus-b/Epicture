@@ -53,10 +53,8 @@ import eu.epitech.epicture.api.User;
 
 public class Client implements IPictureSearchingServices, IPictureUploadServices, IUserManager {
 
-
-    public static String _ID = "4347b0730ed2272";
-    public static String _SECRET = "308ada6dacfaa4cbc4ccd128c859cde7b8677725";
-
+    public static String _ID = "8247912c0e0c59d";
+    public static String _SECRET = "4a8211234046ca174d66124a49c0c913efd00de0";
     private ArrayList<Pair<RequestQueue, CustomStringRequest>> _requests = new ArrayList<>();
 
     public String SearchContentByName(Context ctxt, String ContentName, int Max, final ISearchingPicturesServicesCallback Callback) {

@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class User {
+
     private int _id;
     private Date _subcription_date;
     private String _unique_str;

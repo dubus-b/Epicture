@@ -1,5 +1,6 @@
 package eu.epitech.epicture;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 import eu.epitech.epicture.api.User;
 
-public class UploadActivity extends AppCompatActivity {
+public class UsersManagementActivity extends AppCompatActivity {
 
     private RecyclerView _usersListView;
     private UsersAdaptater _usersAdapter;
@@ -21,12 +22,13 @@ public class UploadActivity extends AppCompatActivity {
     private ArrayList<String> _filepaths;
     private int _nb_checked;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_users_management);
         _nb_checked = 0;
-        setContentView(R.layout.upload_activity);
         final ArrayList<User> Users = new ArrayList<>();
-        _filepaths = (ArrayList<String>) getIntent().getSerializableExtra("FilePaths");
         Users.add(new User(1, new Date(), "jeantoast42@gmail.com", "imgur"));
         Users.add(new User(2, new Date(), "jeantoast42@gmail.com", "imgur"));
         Users.add(new User(3, new Date(), "jeantoast42@gmail.com", "imgur"));
@@ -44,10 +46,10 @@ public class UploadActivity extends AppCompatActivity {
         Users.add(new User(14, new Date(), "jeantoast42@gmail.com", "imgur"));
         Users.add(new User(15, new Date(), "jeantoast42@gmail.czm", "imgur"));
 
-        _usersListView = findViewById(R.id.users_recycler_view);
+        _usersListView = findViewById(R.id.users_list);
         _usersListView.setHasFixedSize(true);
         _usersLayout = new LinearLayoutManager(this);
-        _usersAdapter = new UsersAdaptater(Users, UsersAdaptater.UPLOAD_ACTIVITY);
+        _usersAdapter = new UsersAdaptater(Users, UsersAdaptater.ACCOUNTS_MANAGEMENT_ACTIVITY);
 
         _usersListView.setLayoutManager(_usersLayout);
         _usersListView.setAdapter(_usersAdapter);
@@ -66,25 +68,12 @@ public class UploadActivity extends AppCompatActivity {
 
             @Override
             public void onCheckboxClick(int position) {
-                Boolean new_check_status = ((CheckBox)_usersListView.findViewHolderForAdapterPosition(position).itemView.findViewById(R.id.AccountSelect)).isChecked();
-                if (_nb_checked == 1 && new_check_status == false) {
-                    // last one checked removed
-                    FloatingActionButton fab = findViewById(R.id.floating_action_upload_activity);
-                    fab.setVisibility(View.INVISIBLE);
-                }
-                else if (_nb_checked == 0 && new_check_status == true) {
-                    FloatingActionButton fab = findViewById(R.id.floating_action_upload_activity);
-                    fab.setVisibility(View.VISIBLE);
-                }
-                if (new_check_status)
-                    ++_nb_checked;
-                else
-                    --_nb_checked;
             }
         });
     }
 
-    public void UploadOnSelectedPlatform(View view) {
-
+    public void AddNewUser(View view) {
+        Intent add_user = new Intent(this, AddNewUser.class);
+        startActivityForResult(add_user, 1);
     }
 }

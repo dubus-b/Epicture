@@ -73,7 +73,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="77dp">
+            android:layout_height="wrap_content"
+            android:onClick="ManageUsersAccount">
 
             <View
                 android:id="@+id/separator2"

@@ -56,7 +56,6 @@ public class UsersAdaptater extends RecyclerView.Adapter<UsersAdaptater.UsersHol
     @Override
     public void onBindViewHolder(UsersHolder holder, int position) {
 User user = _users.get(position);
-        holder._unique_id.setText(String.valueOf(user.get_id()));
         holder._unique_str.setText(user.get_unique_str());
         if (_activity_type == UPLOAD_ACTIVITY) {
             holder._PictureService.setVisibility(View.VISIBLE);
@@ -71,6 +70,7 @@ User user = _users.get(position);
         }
         else {
             holder._delete_user.setVisibility(View.VISIBLE);
+            holder._box.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -97,14 +97,6 @@ User user = _users.get(position);
             this._unique_str = unique_str;
         }
 
-        public TextView getUnique_id() {
-            return _unique_id;
-        }
-
-        public void setUnique_id(TextView unique_id) {
-            this._unique_id = unique_id;
-        }
-
         public CheckBox getBox() {
             return _box;
         }
@@ -115,19 +107,17 @@ User user = _users.get(position);
 
         public ImageView _PictureService;
         public TextView _unique_str;
-        public TextView _unique_id;
         public CheckBox _box;
-        public ImageButton _delete_user;
-        public ImageButton _print_user_info;
+        public ImageView _delete_user;
+        public ImageView _print_user_info;
 
         public UsersHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            _unique_str = itemView.findViewById(R.id.UserUniqueName);
-            _unique_id = itemView.findViewById(R.id.InvisibleUserId);
-            _box = itemView.findViewById(R.id.ServiceToUploadBox);
-            _PictureService = itemView.findViewById(R.id.ServiceToUpload);
-            _delete_user = itemView.findViewById(R.id.delete_user);
-            _print_user_info = itemView.findViewById(R.id.user_info);
+            _unique_str = itemView.findViewById(R.id.AccountTitle);
+            _box = itemView.findViewById(R.id.AccountSelect);
+            _PictureService = itemView.findViewById(R.id.AccountService);
+            _delete_user = itemView.findViewById(R.id.AccountRemove);
+            _print_user_info = itemView.findViewById(R.id.AccountInfo);
 
             _box.setOnClickListener(new View.OnClickListener() {
                 @Override

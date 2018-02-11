@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     public void onImgurSearch(final View view) {
         search(_imgur, view);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
