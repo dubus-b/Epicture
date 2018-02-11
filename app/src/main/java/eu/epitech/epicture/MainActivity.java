@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 
 import android.os.Bundle;
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +16,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CardImageAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 updateUI();
                 CircleIt.setVisibility(View.GONE);
                 onSearchClick(view);
+                Log.i("CUSTOM", "close search windows and circleit");
             }
 
             @Override
@@ -118,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
+
 
     public void onSearchClick(View view) {
         FloatingActionButton button = findViewById(R.id.floating_search_button);
