@@ -63,13 +63,14 @@ public class UsersAdaptater extends RecyclerView.Adapter<UsersAdaptater.UsersHol
     public void onBindViewHolder(UsersHolder holder, int position) {
 User user = _users.get(position);
         holder._unique_str.setText(user.get_unique_str());
-        SQLiteDatabase db = MainActivity.database.getReadableDatabase();
+        /*SQLiteDatabase db = MainActivity.database.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + dbImgurAccount.TABLE + "where _id = ?;", new String[]{String.valueOf(user.get_id())});
         if (cursor.moveToFirst()) {
             holder._id.setText(cursor.getString(cursor.getColumnIndex("_id")));
             holder._access_token.setText(cursor.getString(cursor.getColumnIndex("access_token")));
         }
         db.close();
+        */
         if (_activity_type == UPLOAD_ACTIVITY) {
             holder._PictureService.setVisibility(View.VISIBLE);
             switch (user.get_platfom()) {
