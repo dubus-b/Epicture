@@ -1,6 +1,7 @@
 package eu.epitech.epicture;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,30 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
             favText = itemView.findViewById(R.id.favText);
             dlIcon = itemView.findViewById(R.id.dlButton);
             dlText = itemView.findViewById(R.id.dlText);
+
+            favIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onFavoriteClick(position);
+                        }
+                    }
+                }
+            });
+
+            favText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onFavoriteClick(position);
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -68,6 +93,10 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         CardImage currentItem = new CardImage(imageAddrsList.get(position));
         Picasso.with(activityContext).load(currentItem.getUrl()).into(holder.image);
+        if (currentItem.getFavorite() == 1) {
+            holder.favIcon.setImageResource(R.drawable.ic_favorite_red);
+            holder.favText.setTextColor(Color.parseColor("#ffff4444"));
+        }
     }
 
     @Override

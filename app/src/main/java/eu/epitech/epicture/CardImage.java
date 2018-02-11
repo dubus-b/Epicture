@@ -1,8 +1,8 @@
 package eu.epitech.epicture;
 
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import eu.epitech.epicture.database.table.*;
 
 /**
  * Created by Louis Giraud on 10/02/2018.
@@ -15,12 +15,7 @@ public class CardImage implements Parcelable {
 
     public CardImage(String httpAddrs) {
         this.url = httpAddrs;
-        this.favorite = 0;
-    }
-
-    public CardImage(Cursor row) {
-        this.url = "";
-        this.favorite = 1;
+        this.favorite = dbFavorite.checkFavorite(httpAddrs);
     }
 
     protected CardImage(Parcel in) {
@@ -61,7 +56,13 @@ public class CardImage implements Parcelable {
         return favorite;
     }
 
-    public void setFavorite(int favorite) {
-        this.favorite = favorite;
+    public void switchFavorite() {
+        if (this.favorite == 0) {
+            dbFavorite.addUrl(this.url);
+            this.favorite = 1;
+        } else if (this.favorite == 1) {
+            dbFavorite.delUrl(this.url);
+            this.favorite = 0;
+        }
     }
 }
