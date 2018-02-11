@@ -2,6 +2,7 @@ package eu.epitech.epicture;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         database = new Query(this);
-        favoriteList = dbFavorite.getAllUrl();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void search(IPictureSearchingServices service, final View view) {
         final ProgressBar CircleIt = findViewById(R.id.Loading);
-        String Text = ((EditText)findViewById(R.id.search_input)).getText().toString();
+        String Text = ((EditText) findViewById(R.id.search_input)).getText().toString();
         CircleIt.setVisibility(View.VISIBLE);
         service.SearchContentByName(this, Text, 0, new ISearchingPicturesServicesCallback() {
 
@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             searchLayout.setVisibility(View.INVISIBLE);
             button.setImageResource(R.drawable.ic_search);
+
         }
     }
 }

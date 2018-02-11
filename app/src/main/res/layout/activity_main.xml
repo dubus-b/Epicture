@@ -68,4 +68,5 @@
         app:layout_constraintStart_toStartOf="@+id/favorite_gallery"
         app:layout_constraintTop_toBottomOf="@+id/search_layout" />
 
+
 </android.support.constraint.ConstraintLayout>

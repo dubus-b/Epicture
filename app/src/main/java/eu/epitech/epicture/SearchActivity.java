@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
 import eu.epitech.epicture.api.imgur.Client;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -46,4 +50,5 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
     }
+
 }
