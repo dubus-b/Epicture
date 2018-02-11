@@ -13,9 +13,14 @@ public class CardImage implements Parcelable {
     private String url;
     private int favorite;
 
-    public CardImage(String httpAddrs) {
-        this.url = httpAddrs;
-        this.favorite = dbFavorite.checkFavorite(httpAddrs);
+    public CardImage(String url) {
+        this.url = url;
+        this.favorite = dbFavorite.checkFavorite(url);
+    }
+
+    public CardImage(String url, int favorite) {
+        this.url = url;
+        this.favorite = favorite;
     }
 
     protected CardImage(Parcel in) {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.ImageViewHolder> {
 
     private Context activityContext;
-    private ArrayList<String> imageAddrsList;
+    private ArrayList<CardImage> imageList;
     private OnItemClickListener imageClickListener;
 
     public interface OnItemClickListener {
@@ -77,9 +76,9 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
         }
     }
 
-    public CardImageAdapter(Context context, ArrayList<String> imageAddrsList) {
+    public CardImageAdapter(Context context, ArrayList<CardImage> imageList) {
         this.activityContext = context;
-        this.imageAddrsList = imageAddrsList;
+        this.imageList = imageList;
     }
 
     @Override
@@ -91,16 +90,19 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        CardImage currentItem = new CardImage(imageAddrsList.get(position));
+        CardImage currentItem = imageList.get(position);
         Picasso.with(activityContext).load(currentItem.getUrl()).into(holder.image);
         if (currentItem.getFavorite() == 1) {
             holder.favIcon.setImageResource(R.drawable.ic_favorite_red);
             holder.favText.setTextColor(Color.parseColor("#ffff4444"));
+        } else {
+            holder.favIcon.setImageResource(R.drawable.ic_favorite_border);
+            holder.favText.setTextColor(Color.parseColor("#ffcccccc"));
         }
     }
 
     @Override
     public int getItemCount() {
-        return imageAddrsList.size();
+        return imageList.size();
     }
 }
