@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/search_bar"
+    android:id="@+id/search_bar_content"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:background="@color/colorPrimary"
@@ -12,17 +11,19 @@
     app:layout_constraintHorizontal_bias="0.0"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    >
 
     <EditText
         android:id="@+id/search_input"
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@color/colorPrimaryDark"
         android:ems="10"
         android:inputType="none"
         android:singleLine="true"
@@ -30,8 +31,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Loading"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -50,7 +50,6 @@
         app:layout_constraintEnd_toStartOf="@+id/api_flickr"
         app:layout_constraintStart_toEndOf="@+id/search_text_api"
         app:layout_constraintTop_toBottomOf="@+id/search_input"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/imgur" />
 
     <ImageView
@@ -67,7 +66,6 @@
         app:layout_constraintEnd_toStartOf="@+id/api_pixabay"
         app:layout_constraintStart_toEndOf="@+id/api_imgur"
         app:layout_constraintTop_toBottomOf="@+id/search_input"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/flickr" />
 
     <ImageView
@@ -84,7 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/api_flickr"
         app:layout_constraintTop_toBottomOf="@+id/search_input"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/pixabay" />
 
     <TextView
@@ -98,27 +95,10 @@
         android:text="Select Plateform :"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/api_imgur"
         app:layout_constraintEnd_toStartOf="@+id/api_imgur"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_input" />
-
-    <ProgressBar
-        android:id="@+id/Loading"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:progressTint="@color/colorAccent"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintTop_toTopOf="@+id/api_imgur" />
 
 </android.support.constraint.ConstraintLayout>
