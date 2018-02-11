@@ -9,7 +9,6 @@ import java.util.Date;
 public class User {
 
     private int _id;
-    private Date _subcription_date;
     private String _unique_str;
     private String _platform;
 
@@ -21,9 +20,8 @@ public class User {
         this._unique_str = _unique_str;
     }
 
-    public User(int id, Date date, String unique, String platform) {
+    public User(int id, String unique, String platform) {
         _id = id;
-        _subcription_date = date;
         _unique_str = unique;
         _platform = platform;
     }
@@ -34,14 +32,6 @@ public class User {
 
     public void set_id(int _id) {
         this._id = _id;
-    }
-
-    public Date get_subcription_date() {
-        return _subcription_date;
-    }
-
-    public void set_subcription_date(Date _subcription_date) {
-        this._subcription_date = _subcription_date;
     }
 
     public void set_platform(String platform) {

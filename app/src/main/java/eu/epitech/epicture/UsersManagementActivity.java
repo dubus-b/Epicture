@@ -1,6 +1,8 @@
 package eu.epitech.epicture;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import eu.epitech.epicture.api.User;
+import eu.epitech.epicture.database.table.dbAccount;
+import eu.epitech.epicture.database.table.dbImgurAccount;
 
 public class UsersManagementActivity extends AppCompatActivity {
 
@@ -29,22 +34,17 @@ public class UsersManagementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_users_management);
         _nb_checked = 0;
         final ArrayList<User> Users = new ArrayList<>();
-        Users.add(new User(1, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(2, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(3, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(4, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(5, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(6, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(7, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(8, new Date(), "jeantoast42@gmail.czm", "imgur"));
-        Users.add(new User(9, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(10, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(11, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(12, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(13, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(14, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(14, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(15, new Date(), "jeantoast42@gmail.czm", "imgur"));
+        SQLiteDatabase db = MainActivity.database.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + dbAccount.TABLE + ";", null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Users.add(new User(cursor.getColumnIndex("_id"),
+                        cursor.getString(cursor.getColumnIndex(dbAccount.COL_ACCOUNT_USTR)),
+                        cursor.getString(cursor.getColumnIndex(dbAccount.COL_ACCOUNT_SERVICE))));
+                cursor.moveToNext();
+            }
+        }
+        db.close();
 
         _usersListView = findViewById(R.id.users_list);
         _usersListView.setHasFixedSize(true);
@@ -70,6 +70,22 @@ public class UsersManagementActivity extends AppCompatActivity {
             public void onCheckboxClick(int position) {
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+                Toast.makeText(this, "L'ajout de votre compte est un succès", Toast.LENGTH_LONG).show();
+                // Do something with the contact here (bigger example below)
+            }
+            else {
+                Toast.makeText(this, "Désolé mais l'ajout à échoué", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     public void AddNewUser(View view) {
