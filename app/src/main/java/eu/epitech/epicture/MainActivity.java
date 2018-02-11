@@ -16,9 +16,13 @@ import java.util.ArrayList;
 
 import eu.epitech.epicture.api.IPictureSearchingServices;
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
+import eu.epitech.epicture.database.Query;
 import eu.epitech.epicture.favorite.FavoriteActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    // DATABASE ACCESS DECLARATION
+    public static Query database;
 
     // API INTERFACE DECLARATION
     private IPictureSearchingServices _pixabay = new eu.epitech.epicture.api.pixabay.Client();
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        database = new Query(this);
     }
 
     @Override
