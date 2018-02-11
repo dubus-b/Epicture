@@ -1,0 +1,32 @@
+package eu.epitech.epicture;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import java.util.ArrayList;
+
+/**
+ * Created by oscar on 10/02/2018.
+ */
+
+public class SettingsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+    }
+
+    public void ManageUsersAccount(View view) {
+        Intent management_users_account = new Intent(this, UsersManagementActivity.class);
+        startActivity(management_users_account);
+    }
+
+    public void clear_cache(View view) {
+        eu.epitech.epicture.api.IPictureSearchingServices imgur = MainActivity._imgur;
+    }
+}

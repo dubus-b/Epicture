@@ -2,6 +2,7 @@ package eu.epitech.epicture;
 
 import android.content.Context;
 import android.graphics.Color;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,6 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
             favText = itemView.findViewById(R.id.favText);
             dlIcon = itemView.findViewById(R.id.dlButton);
             dlText = itemView.findViewById(R.id.dlText);
-
             favIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

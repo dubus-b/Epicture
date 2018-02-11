@@ -56,6 +56,7 @@ public class Client implements eu.epitech.epicture.api.IPictureSearchingServices
                             for (int IdHits = 0; IdHits < hits.length(); ++IdHits) {
                                 JSONObject hit = hits.optJSONObject(IdHits);
                                 Log.d("IdHits " + IdHits + ": ", hit.getString("previewURL"));
+                                Answers.add(hit.getString("previewURL"));
                             }
                             callback.onSuccess(Answers);
                         } catch (JSONException e) {
@@ -76,5 +77,10 @@ public class Client implements eu.epitech.epicture.api.IPictureSearchingServices
         Log.d("tag returned1 = ", Tag);
         Queue.add(stringRequest);
         return Tag;
+    }
+
+    @Override
+    public int ClearCache() {
+        return 0;
     }
 }

@@ -19,11 +19,9 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        ArrayList<String> favoriteUrlList = dbFavorite.getAllUrl();
         recyclerView = findViewById(R.id.favorite_gallery);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext());
-        adapter = new CardImageAdapter(getApplicationContext(), favoriteUrlList);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }

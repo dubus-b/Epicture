@@ -13,6 +13,7 @@ import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;*/
 
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,18 +34,27 @@ import java.util.UUID;
 
 import eu.epitech.epicture.api.IPictureSearchingServices;
 import eu.epitech.epicture.api.CustomStringRequest;
+import eu.epitech.epicture.api.IPictureUploadServices;
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
+import eu.epitech.epicture.api.IUserManager;
+import eu.epitech.epicture.api.User;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import eu.epitech.epicture.api.IPictureServices;
+import eu.epitech.epicture.api.User;
 
 /**
  * Created by Louis Giraud on 05/02/2018.
  */
 
-public class Client implements IPictureSearchingServices {
+public class Client implements IPictureSearchingServices, IPictureUploadServices, IUserManager {
 
-    public static String _ID = "4347b0730ed2272";
-    public static String _SECRET = "308ada6dacfaa4cbc4ccd128c859cde7b8677725";
-
+    public static String _ID = "8247912c0e0c59d";
+    public static String _SECRET = "4a8211234046ca174d66124a49c0c913efd00de0";
     private ArrayList<Pair<RequestQueue, CustomStringRequest>> _requests = new ArrayList<>();
 
     public String SearchContentByName(Context ctxt, String ContentName, int Max, final ISearchingPicturesServicesCallback Callback) {
@@ -56,34 +66,33 @@ public class Client implements IPictureSearchingServices {
         }
         RequestQueue queue = Volley.newRequestQueue(ctxt);
         final String Tag = UUID.randomUUID().toString();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://api.imgur.com/3/gallery/search/?q=" + Content_encoded,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "https://api.imgur.com/3/gallery/search/?q=" + Content_encoded, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Display the first 500 characters of the response string.
+                try {
+                    ArrayList<String> Answers = new ArrayList<>();
+                    JSONObject jsonAnswer = new JSONObject(response);
+                    JSONArray data = jsonAnswer.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject post = data.optJSONObject(i);
                         try {
-                            ArrayList<String> Answers = new ArrayList<>();
-                            JSONObject jsonAnswer = new JSONObject(response);
-                            JSONArray data = jsonAnswer.getJSONArray("data");
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject post = data.optJSONObject(i);
-                                try {
-                                    JSONArray images = post.getJSONArray("images");
-                                    for (int j = 0; j < images.length(); j++) {
-                                        JSONObject image = images.optJSONObject(j);
-                                        Answers.add(image.getString("link"));
-                                    }
-                                }
-                                catch (JSONException e) {
-
-                                }
+                            JSONArray images = post.getJSONArray("images");
+                            for (int j = 0; j < images.length(); j++) {
+                                JSONObject image = images.optJSONObject(j);
+                                Answers.add(image.getString("link"));
+                                image.getString("link");
                             }
-                            Callback.onSuccess(Answers);
                         } catch (JSONException e) {
-                            e.printStackTrace();
+
                         }
                     }
-                }, new Response.ErrorListener() {
+                    Callback.onSuccess(Answers);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("SearchContentByName :/", error.toString());
@@ -91,6 +100,7 @@ public class Client implements IPictureSearchingServices {
         }) {
             @Override
             public Map<String, String> getHeaders() {
+
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "Client-ID " + _ID);
                 return params;
@@ -101,8 +111,38 @@ public class Client implements IPictureSearchingServices {
         CustomStringRequest Creq = new CustomStringRequest(stringRequest);
         Pair<RequestQueue, CustomStringRequest> new_pair = new Pair<>(Queue, Creq);
         _requests.add(new_pair);
-        Log.d("tag returned1 = ", Tag);
         Queue.add(stringRequest);
         return Tag;
+    }
+
+    @Override
+    public int ClearCache() {
+        return 0;
+    }
+
+    @Override
+    public boolean UploadImage(String FileLocator, int UserId) {
+
+        return false;
+    }
+
+    @Override
+    public boolean AddUser() {
+        return false;
+    }
+
+    @Override
+    public void DeleteUser(int UserId) {
+
+    }
+
+    @Override
+    public User GetUser(int UserId) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<User> GetUsers() {
+        return null;
     }
 }
