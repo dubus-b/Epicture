@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         service.SearchContentByName(this, Text, 0, new ISearchingPicturesServicesCallback() {
             @Override
             public void onSuccess(ArrayList<String> Results) {
+                Log.i("Image Gallery", Results.size() + " images have been found");
                 recyclerView = findViewById(R.id.image_gallery);
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(MainActivity.getContext());
