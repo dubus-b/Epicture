@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
+
+import eu.epitech.epicture.api.IPictureSearchingServices;
+import eu.epitech.epicture.database.table.dbFavorite;
 
 /**
  * Created by oscar on 10/02/2018.
@@ -27,6 +29,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void clear_cache(View view) {
-        eu.epitech.epicture.api.IPictureSearchingServices imgur = MainActivity._imgur;
+        IPictureSearchingServices imgur = MainActivity._imgur;
+    }
+
+    public void clear_favorite(View view) {
+        ArrayList<CardImage> favorite = new ArrayList<>();
+        dbFavorite.getAllUrl(favorite);
+        for (CardImage cardImage : favorite) {
+            dbFavorite.delUrl(cardImage.getUrl());
+        }
     }
 }
