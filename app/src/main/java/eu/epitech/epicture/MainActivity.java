@@ -4,32 +4,18 @@ import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 
 import android.os.Bundle;
-import android.content.Context;
 import android.Manifest;
-import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.constraint.ConstraintLayout;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.view.MenuItem;
-
-import eu.epitech.epicture.api.User;
-import eu.epitech.epicture.api.imgur.Client;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
