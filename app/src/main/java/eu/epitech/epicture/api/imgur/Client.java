@@ -34,7 +34,10 @@ import java.util.UUID;
 
 import eu.epitech.epicture.api.IPictureSearchingServices;
 import eu.epitech.epicture.api.CustomStringRequest;
+import eu.epitech.epicture.api.IPictureUploadServices;
 import eu.epitech.epicture.api.ISearchingPicturesServicesCallback;
+import eu.epitech.epicture.api.IUserManager;
+import eu.epitech.epicture.api.User;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -48,7 +51,7 @@ import eu.epitech.epicture.api.User;
  * Created by Louis Giraud on 05/02/2018.
  */
 
-public class Client implements IPictureSearchingServices {
+public class Client implements IPictureSearchingServices, IPictureUploadServices, IUserManager {
 
 
     public static String _ID = "4347b0730ed2272";
@@ -110,9 +113,38 @@ public class Client implements IPictureSearchingServices {
         CustomStringRequest Creq = new CustomStringRequest(stringRequest);
         Pair<RequestQueue, CustomStringRequest> new_pair = new Pair<>(Queue, Creq);
         _requests.add(new_pair);
-        Log.d("tag returned1 = ", Tag);
         Queue.add(stringRequest);
         return Tag;
     }
 
+    @Override
+    public int ClearCache() {
+        return 0;
+    }
+
+    @Override
+    public boolean UploadImage(String FileLocator, int UserId) {
+
+        return false;
+    }
+
+    @Override
+    public boolean AddUser() {
+        return false;
+    }
+
+    @Override
+    public void DeleteUser(int UserId) {
+
+    }
+
+    @Override
+    public User GetUser(int UserId) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<User> GetUsers() {
+        return null;
+    }
 }

@@ -101,4 +101,9 @@ public class Client implements IPictureSearchingServices {
         Queue.add(stringRequest);
         return Tag;
     }
+
+    @Override
+    public int ClearCache() {
+        return 0;
+    }
 }

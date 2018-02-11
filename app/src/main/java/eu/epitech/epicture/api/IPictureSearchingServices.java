@@ -8,4 +8,5 @@ import android.content.Context;
 
 public interface IPictureSearchingServices {
     String SearchContentByName(Context ctxt, String content, int maximum, ISearchingPicturesServicesCallback callback);
+    int ClearCache();
 }
