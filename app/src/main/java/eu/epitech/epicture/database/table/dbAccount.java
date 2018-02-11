@@ -8,14 +8,14 @@ import android.provider.BaseColumns;
 
 public class dbAccount implements BaseColumns {
 
-    public static final String TABLE = "Account";
+    public static final String TABLE = "Users";
 
     public static final String COL_ACCOUNT_DATE = "subscription_date";
     public static final String COL_ACCOUNT_USTR = "unique_str";
     public static final String COL_ACCOUNT_SERVICE = "service";
 
     public static String getSqlCreateTable() {
-        String sql = "CREATE TABLE account ( " +
+        String sql = "CREATE TABLE " + TABLE + " ( " +
                 _ID + " integer PRIMARY KEY AUTOINCREMENT, " +
                 COL_ACCOUNT_DATE + " datetime, " +
                 COL_ACCOUNT_USTR + " unique_str text, " +
