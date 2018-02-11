@@ -42,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onSearchSuccess(ArrayList<String> images) {
-        for (String imgAddrs : images) {
-
-        }
-    }
-
     public void onFavoriteButtonClick(View view) {
 
     }
@@ -79,26 +73,14 @@ public class MainActivity extends AppCompatActivity {
         service.SearchContentByName(this, Text, 0, new ISearchingPicturesServicesCallback() {
             @Override
             public void onSuccess(ArrayList<String> Results) {
-
-                Log.i("CUSTOM", "onSuccess start");
-
                 recyclerView = findViewById(R.id.image_gallery);
                 recyclerView.setHasFixedSize(true);
-
-                Log.i("CUSTOM", "recyclerview new");
-
                 layoutManager = new LinearLayoutManager(MainActivity.getContext());
                 adapter = new CardImageAdapter(Results);
-
-                Log.i("CUSTOM", "adapter and layout manager");
-
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-
-                Log.i("CUSTOM", "onSuccess end");
                 CircleIt.setVisibility(View.GONE);
                 onSearchClick(view);
-                Log.i("CUSTOM", "close search windows and circleit");
             }
 
             @Override

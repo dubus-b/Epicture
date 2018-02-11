@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.ImageViewHolder> {
 
-    private ArrayList<CardImage> imageAddrsList;
+    private ArrayList<String> imageAddrsList;
     private OnItemClickListener imageClickListener;
 
     public interface OnItemClickListener {
@@ -52,11 +52,7 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
     }
 
     public CardImageAdapter(ArrayList<String> arrayList) {
-        for (String tmpUrl : arrayList) {
-            Log.i("ADAPTER", "loading addrs : " + tmpUrl);
-            this.imageAddrsList.add(new CardImage(tmpUrl));
-        }
-        Log.i("ADAPTER", "adapter loading end");
+        imageAddrsList = arrayList;
     }
 
     @Override
@@ -68,12 +64,12 @@ public class CardImageAdapter extends RecyclerView.Adapter<CardImageAdapter.Imag
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-        CardImage currentItem = imageAddrsList.get(position);
+        CardImage currentItem = new CardImage(imageAddrsList.get(position));
         Picasso.with(MainActivity.getContext()).load(currentItem.getUrl()).into(holder.image);
     }
 
     @Override
     public int getItemCount() {
-        return this.imageAddrsList.size();
+        return imageAddrsList.size();
     }
 }
