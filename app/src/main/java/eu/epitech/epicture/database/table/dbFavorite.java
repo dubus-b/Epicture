@@ -38,7 +38,7 @@ public class dbFavorite implements BaseColumns {
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE, null);
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
-                UrlList.add(new CardImage(cursor.getString(cursor.getColumnIndex(COL_FAVORITE_URL))));
+                UrlList.add(new CardImage(cursor.getString(cursor.getColumnIndex(COL_FAVORITE_URL)), 1));
                 cursor.moveToNext();
             }
         }
