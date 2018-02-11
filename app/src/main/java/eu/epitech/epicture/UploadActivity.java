@@ -1,5 +1,7 @@
 package eu.epitech.epicture;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import eu.epitech.epicture.api.User;
+import eu.epitech.epicture.database.table.dbAccount;
 
 public class UploadActivity extends AppCompatActivity {
 
@@ -27,23 +30,17 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.upload_activity);
         final ArrayList<User> Users = new ArrayList<>();
         _filepaths = (ArrayList<String>) getIntent().getSerializableExtra("FilePaths");
-        Users.add(new User(1, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(2, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(3, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(4, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(5, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(6, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(7, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(8, new Date(), "jeantoast42@gmail.czm", "imgur"));
-        Users.add(new User(9, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(10, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(11, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(12, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(13, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(14, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(14, new Date(), "jeantoast42@gmail.com", "imgur"));
-        Users.add(new User(15, new Date(), "jeantoast42@gmail.czm", "imgur"));
-
+        SQLiteDatabase db = MainActivity.database.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + dbAccount.TABLE + ";", null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Users.add(new User(cursor.getColumnIndex("_id"),
+                        cursor.getString(cursor.getColumnIndex(dbAccount.COL_ACCOUNT_USTR)),
+                        cursor.getString(cursor.getColumnIndex(dbAccount.COL_ACCOUNT_SERVICE))));
+                cursor.moveToNext();
+            }
+        }
+        db.close();
         _usersListView = findViewById(R.id.users_recycler_view);
         _usersListView.setHasFixedSize(true);
         _usersLayout = new LinearLayoutManager(this);
